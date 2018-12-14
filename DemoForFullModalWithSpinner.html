@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>jQuery loadingModal Plugin Demos</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/jquery.loadingModal.css">
+
+    <style>
+        body {
+            font-family: 'Open Sans';
+        }
+
+        #wrapper {
+            text-align: center;
+            padding: 30px;
+        }
+    </style>
+    
+    <script src="http://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="js/jquery.loadingModal.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#linksWrapper button').click(function (e) {
+                $('body').css('cursor', 'wait');
+                showModal();
+
+                var goTo = this.getAttribute("redirectTo"); 
+
+                setTimeout(function () {
+                    window.location = goTo;
+                    destroyModal();
+                    $("body").css("cursor", "default");
+                }, 5000);       
+
+                
+
+            });
+
+        });
+        
+        
+
+        function showModal() {
+                $('body').loadingModal(
+                {
+                    text: 'Loading please wait...',
+                    backgroundColor: '#aaaaaa',
+                    animation: 'doubleBounce',
+                    opacity: '0.7'
+                });
+        }
+
+
+        function destroyModal() {
+            $('body').loadingModal('destroy');
+        }
+
+    </script>
+
+</head>
+<body>
+    <div id="linksWrapper">
+        <!--<a href="https://www.google.com" target="_self">Google</a>
+        <a href="https://www.asp.net" target="_self">Asp.Net</a>-->
+
+        <button redirectTo="https://www.google.com">Take me to Google</button>
+        <button redirectTo="https://www.asp.net">Take me to Asp.Net</button>
+
+    </div>
+
+</body>
+</html>
