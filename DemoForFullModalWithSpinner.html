@@ -25,27 +25,43 @@
 </head>
 <body>
 <div id="linksWrapper">
-    <a href="https://www.google.com" target="_self">Google</a>
-    <a href="https://www.asp.net" target="_self">Asp.Net</a>
-
-    <button redirectTo="https://www.google.com">Take me to Google</button>
-    <button redirectTo="https://www.asp.net">Take me to Asp.Net</button>
+<div>
+	<p>Included List links</p>
+    <a class="includeCls1" id="includeId1" href="https://www.google.com" target="_self">Google</a> <br/>
+    <a class="includeCls2" id="includeId3" href="https://www.asp.net" target="_self">Asp.Net 2</a>
+	 <a class="include3"  href="https://www.asp.net" target="_self">Asp.Net 3</a>
+</div>
+<div>
+	<p>Excluded List links</p>
+	<a class="excludeCls1" id="excludeId1" href="https://www.google.com" target="_self">Google</a> <br/>
+    <a class="excludeCls2" id="excludeId2" href="https://www.asp.net" target="_self">Asp.Net</a>
+	<a class="newExclude"  href="https://www.asp.net" target="_self">Exclude 3</a>
+</div>
 
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#linksWrapper a').click(function (e) {
-            $('body').css('cursor', 'wait');
-            showModal();
-            e.preventDefault();   
-            //var goTo = this.getAttribute("redirectTo"); 
-            var goTo = this.getAttribute("href"); 
+			var currentElement = $(this);
+			
+			var idExcludeArray = ['excludeId1','excludeId2'];
+			var cssClsExcludeArray = ['excludeCls1','excludeCls2', 'newExclude'];
+			
+			var elementId = currentElement.attr('id');
+			var elementCssCls = currentElement.attr('class');
+			if((elementId && idExcludeArray.indexOf(elementId) == -1) || (elementCssCls && cssClsExcludeArray.indexOf(elementCssCls) == -1))
+			{
+				$('body').css('cursor', 'wait');
+				showModal();
+				e.preventDefault();   
+				var goTo = this.getAttribute("href"); 
 
-            setTimeout(function () {
-                window.location = goTo;
-                destroyModal();
-                $("body").css("cursor", "default");
-            }, 5000);       
+				setTimeout(function () {
+					window.location = goTo;
+					destroyModal();
+					$("body").css("cursor", "default");
+				}, 5000);   
+			}			
         });
     });
 
